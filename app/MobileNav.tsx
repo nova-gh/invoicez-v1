@@ -5,9 +5,7 @@ import Avatar from "./Avatar";
 const MobileNav = ({ session }: Session) => {
   return (
     <header className="flex justify-between h-24 bg-gray-800 lg:hidden">
-      <div
-        className="flex ease-linear bg-indigo-600 bg-brand/75 hover:bg-brand rounded-r-2xl hover:bg-indigo-700"
-      >
+      <div className="flex ease-linear bg-indigo-600 bg-brand/75 hover:bg-brand rounded-r-2xl hover:bg-indigo-700">
         <Link href="/" className="flex flex-col py-4">
           <svg
             width="120"
@@ -91,11 +89,13 @@ const MobileNav = ({ session }: Session) => {
           </svg>
         </Link>
       </div>
-      <div className="flex items-center px-4 border-l border-gray-600">
-        <Link href="/">
-          <Avatar session={session} />
-        </Link>
-      </div>
+      {session?.user && (
+        <div className="flex items-center px-4 border-l border-gray-600">
+          <Link href="/">
+            <Avatar session={session} />
+          </Link>
+        </div>
+      )}
     </header>
   );
 };

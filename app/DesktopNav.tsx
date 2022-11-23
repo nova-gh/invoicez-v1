@@ -88,7 +88,7 @@ const DesktopNav = ({ session }) => {
           </svg>
         </Link>
       </div>
-      {session.user && (
+      {session?.user && (
         <div className="sticky bottom-0 flex justify-center py-4 mt-auto border-t border-gray-600 item-center ">
           <Link href="/setting">
             <Avatar session={session} />
