@@ -4,7 +4,7 @@ import SignInComponenet from "./SignInComponenet";
 const SignInPage = async () => {
   const providers = await getProviders();
   return (
-    <div className="mx-auto mt-5 flex flex-col items-center justify-center space-y-4">
+    <div className="flex flex-col items-center justify-center h-screen mx-auto space-y-4 bg-red-100">
       <div className="">
         {/* <Image width={400} height={400} alt="Logo" src={Logo} /> */}
       </div>

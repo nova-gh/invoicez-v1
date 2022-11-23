@@ -14,7 +14,7 @@ const SignInComponenet = ({ providers }: Props) => {
                 callbackUrl: "http://localhost:3000",
               })
             }
-            className="px-4 py-2 font-bold text-white rounded bg-brand/80 hover:bg-brand"
+            className="px-4 py-2 font-bold border border-gray-800"
           >
             Sign in with {provider.name}
           </button>
