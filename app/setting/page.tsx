@@ -1,6 +1,6 @@
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../../pages/api/auth/[...nextauth]";
-import SignOut from "../SignOut";
+import SignOut from "../auth/singout/SignOut";
 const SettingPage = async () => {
   const session = await unstable_getServerSession(authOptions);
   return (

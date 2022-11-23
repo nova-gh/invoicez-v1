@@ -1,7 +1,6 @@
 import { unstable_getServerSession } from "next-auth";
 import Link from "next/link";
 import { authOptions } from "../pages/api/auth/[...nextauth]";
-import SignOut from "./SignOut";
 import { prisma } from "../lib/prismadb";
 import InvoiceCard from "./InvoiceCard";
 
@@ -14,16 +13,19 @@ export default async function Home() {
   const data = await fetchInvoices(session?.user?.id!);
 
   return (
-    <div className="">
-      <main className="flex flex-col h-screen p-8">
-        <h1 className="text-2xl">{session?.user?.name} Invocies</h1>
-        <div className="mt-4 space-y-4">
-          {data.map((invoice) => (
-            <InvoiceCard invoice={invoice} key={invoice.id} />
-          ))}
-        </div>
-        {!session && <Link href="/auth/signin"> Sign in</Link>}
-      </main>
-    </div>
+    <main className="flex flex-col h-screen p-8">
+      {!session ? (
+        <Link href="/auth/signin">Login</Link>
+      ) : (
+        <>
+          <h1 className="text-2xl">{session?.user?.name} Invocies</h1>
+          <div className="mt-4 space-y-4">
+            {data?.map((invoice) => (
+              <InvoiceCard invoice={invoice} key={invoice.id} />
+            ))}
+          </div>
+        </>
+      )}
+    </main>
   );
 }
