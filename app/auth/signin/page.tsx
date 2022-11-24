@@ -1,6 +1,6 @@
+import SignInComponenet from "@/components/auth/SignInComponenet";
 import { getProviders } from "next-auth/react";
 import Image from "next/image";
-import SignInComponenet from "./SignInComponenet";
 const SignInPage = async () => {
   const providers = await getProviders();
   return (

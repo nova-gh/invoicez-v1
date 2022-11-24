@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Session } from "../typing";
+import { Session } from "../../typing";
 
 const Avatar = ({ session }: Session) => {
   return (

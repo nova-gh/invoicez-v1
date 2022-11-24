@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components{
+  .page-wrapper{
+    @apply flex flex-col h-screen p-8
+  }
+}

@@ -1,31 +1,27 @@
-import { unstable_getServerSession } from "next-auth";
-import Link from "next/link";
-import { authOptions } from "../pages/api/auth/[...nextauth]";
 import { prisma } from "../lib/prismadb";
-import InvoiceCard from "./InvoiceCard";
+import { User } from "@prisma/client";
+import { getUser } from "@/lib/session";
+import InvoiceHeader from "@/components/invoice/invoiceHeader";
+import InvoiceCard from "@/components/invoice/InvoiceCard";
 
-const fetchInvoices = async (id: string) => {
+const fetchInvoices = async (id: User["id"]) => {
   const res = await prisma.invoice.findMany({ where: { creatorId: id } });
   return res;
 };
 export default async function Home() {
-  const session = await unstable_getServerSession(authOptions);
-  const data = await fetchInvoices(session?.user?.id!);
+  const user = await getUser();
+  const invoices = await fetchInvoices(user?.id!);
+  const totalInvoice = invoices.length;
 
   return (
-    <main className="flex flex-col h-screen p-8">
-      {!session ? (
-        <Link href="/auth/signin">Login</Link>
-      ) : (
-        <>
-          <h1 className="text-2xl">{session?.user?.name} Invocies</h1>
-          <div className="mt-4 space-y-4">
-            {data?.map((invoice) => (
-              <InvoiceCard invoice={invoice} key={invoice.id} />
-            ))}
-          </div>
-        </>
-      )}
+    <main className="page-wrapper">
+      <InvoiceHeader totalInvoice={totalInvoice} />
+      <h1 className="text-2xl">{user?.name} Invocies</h1>
+      <div className="mt-4 space-y-4">
+        {invoices?.map((invoice) => (
+          <InvoiceCard invoice={invoice} key={invoice.id} />
+        ))}
+      </div>
     </main>
   );
 }

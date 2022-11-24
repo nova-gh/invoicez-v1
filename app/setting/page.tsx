@@ -1,14 +1,13 @@
-import { unstable_getServerSession } from "next-auth";
-import { authOptions } from "../../pages/api/auth/[...nextauth]";
-import SignOut from "../auth/singout/SignOut";
+import { getUser } from "@/lib/session";
+import SignOut from "../../components/auth/SignOut";
 const SettingPage = async () => {
-  const session = await unstable_getServerSession(authOptions);
+  const user = await getUser();
   return (
-    <main className="flex flex-col h-screen p-8 ">
+    <main className="page-wrapper">
       <h1 className="text-2xl">Settings</h1>
       <div className="mt-6 space-y-4">
-        <h2 className="text-xl">Full Name: {session?.user.name}</h2>
-        <h2 className="text-xl">Email: {session?.user.email}</h2>
+        <h2 className="text-xl">Full Name: {user?.name}</h2>
+        <h2 className="text-xl">Email: {user?.email}</h2>
         <h2 className="text-xl"></h2>
       </div>
       <div className="self-end mt-auto">

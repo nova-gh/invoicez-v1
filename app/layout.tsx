@@ -1,9 +1,9 @@
+import DesktopNav from "@/components/common/DesktopNav";
+import MobileNav from "@/components/common/MobileNav";
+import Providers from "@/components/common/provider";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../pages/api/auth/[...nextauth]";
-import DesktopNav from "./DesktopNav";
 import "./globals.css";
-import MobileNav from "./MobileNav";
-import Providers from "./provider";
 export default async function RootLayout({
   children,
 }: {

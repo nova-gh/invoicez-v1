@@ -1,12 +1,11 @@
 import Link from "next/link";
-import { Session } from "../typing";
 import Avatar from "./Avatar";
 
-const MobileNav = ({ session }: Session) => {
+const DesktopNav = ({ session }) => {
   return (
-    <header className="flex justify-between h-24 bg-gray-800 lg:hidden">
-      <div className="flex ease-linear bg-indigo-600 bg-brand/75 hover:bg-brand rounded-r-2xl hover:bg-indigo-700">
-        <Link href="/" className="flex flex-col py-4">
+    <header className="relative hidden w-[10%] overflow-hidden border-l border-gray-700 bg-gray-800 text-white lg:flex lg:flex-col ">
+      <div className="sticky top-0 rounded-b-2xl bg-indigo-600 p-2 ease-linear hover:bg-indigo-700 ">
+        <Link passHref href={"/"} className="flex ">
           <svg
             width="120"
             height="106"
@@ -90,8 +89,8 @@ const MobileNav = ({ session }: Session) => {
         </Link>
       </div>
       {session?.user && (
-        <div className="flex items-center px-4 border-l border-gray-600">
-          <Link href="/">
+        <div className="item-center sticky bottom-0 mt-auto flex justify-center border-t border-gray-600 py-4 ">
+          <Link href="/setting">
             <Avatar session={session} />
           </Link>
         </div>
@@ -100,4 +99,4 @@ const MobileNav = ({ session }: Session) => {
   );
 };
 
-export default MobileNav;
+export default DesktopNav;
