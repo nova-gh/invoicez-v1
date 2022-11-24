@@ -15,7 +15,7 @@ const InvoiceHeader = ({ totalInvoice }: Props) => {
         <button className="flex items-center p-1 space-x-2 text-lg font-semibold text-white">
           Filter
           <span className="hidden ml-1 lg:block"> by status</span>
-          <span className="text-brand-400">
+          <span className="text-brand-100">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

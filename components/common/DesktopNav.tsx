@@ -4,7 +4,7 @@ import Avatar from "./Avatar";
 const DesktopNav = ({ session }) => {
   return (
     <header className="relative hidden w-[10%] overflow-hidden border-l border-gray-700 bg-gray-800 text-white lg:flex lg:flex-col ">
-      <div className="sticky top-0 rounded-b-2xl bg-indigo-600 p-2 ease-linear hover:bg-indigo-700 ">
+      <div className="sticky top-0 p-2 ease-linear bg-indigo-600 rounded-b-2xl hover:bg-indigo-700 ">
         <Link passHref href={"/"} className="flex ">
           <svg
             width="120"
@@ -89,7 +89,7 @@ const DesktopNav = ({ session }) => {
         </Link>
       </div>
       {session?.user && (
-        <div className="item-center sticky bottom-0 mt-auto flex justify-center border-t border-gray-600 py-4 ">
+        <div className="sticky bottom-0 flex justify-center py-4 mt-auto border-t border-gray-600 item-center ">
           <Link href="/setting">
             <Avatar session={session} />
           </Link>
