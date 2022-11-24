@@ -12,15 +12,15 @@ const InvoiceCard = ({ invoice }: Props) => {
   return (
     <div
       key={invoice.id}
-      className="grid grid-cols-2 p-4 text-white bg-gray-700 rounded-lg cursor-pointer place-items-center md:grid-cols-6"
+      className="grid grid-cols-2 p-4 text-white bg-gray-800 rounded-lg cursor-pointer place-items-center md:grid-cols-6"
     >
       <strong className="col-span-2">
-        <span className="text-brand-extraLight">#</span>
+        <span>#</span>
         {invoice.id}
       </strong>
-      <p className="font-semibold text-gray-400">Due {createdDate}</p>
-      <p className="font-semibold text-gray-400">{invoice.clientName}</p>
-      <strong className="order-5">
+      <p className="font-semibold text-gray-300">Due {createdDate}</p>
+      <p className="font-semibold text-gray-300">{invoice.clientName}</p>
+      <strong className="order-5 ">
         {currencyFormatter.format(invoice.total)}
       </strong>
       <div className="flex items-center w-full md:order-5 md:space-x-6">
@@ -29,19 +29,19 @@ const InvoiceCard = ({ invoice }: Props) => {
           className={`mt-4 flex  w-full items-center justify-center space-x-2 rounded-xl p-3 md:mt-0
       ${
         invoice.status
-          ? "bg-[#1F2C3F] text-[#46C6AA]"
-          : "bg-[#2B2735] text-[#FD8F03]"
+          ? "bg-green-100/90 text-green-600"
+          : "bg-orange-100/90 text-orange-600"
       }
       `}
         >
           <span
             className={`mr-2 h-3 w-3 rounded-full ${
-              invoice.status ? "bg-[#46C6AA]" : "bg-[#FD8F03]"
+              invoice.status ? "bg-green-600" : "bg-orange-600"
             }`}
           ></span>
           {invoice.status ? "Paid" : "Pending"}
         </button>
-        <Link href={`/${invoice.id}`}>
+        <Link href={`/invoice/${invoice.id}`}>
           <button className="hidden text-brand md:inline-block">
             <span>
               <svg
