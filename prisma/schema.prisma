@@ -19,6 +19,7 @@ model Invoice {
   status            Boolean  @default(false)
   total             Float
   paymentTerms      Int
+  clientAddress     Json
   senderAddress     Json
   items             Json[]
   creator           User     @relation(fields: [creatorId], references: [id], onDelete: Cascade)
