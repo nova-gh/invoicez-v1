@@ -3,7 +3,7 @@ import SignOut from "../../components/auth/SignOut";
 const SettingPage = async () => {
   const user = await getUser();
   return (
-    <main className="page-wrapper">
+    <main className="text-white page-wrapper">
       <h1 className="text-2xl">Settings</h1>
       <div className="mt-6 space-y-4">
         <h2 className="text-xl">Full Name: {user?.name}</h2>

@@ -32,8 +32,8 @@ const InvoiceHeader = ({ totalInvoice }: Props) => {
             </svg>
           </span>
         </button>
-        <button className="inline-flex items-center px-5 py-3 space-x-2 text-lg font-semibold text-white rounded-full bg-brand-600">
-          <span className="p-1 mr-4 bg-white rounded-full text-brand-600">
+        <button className="inline-flex items-center px-5 py-3 space-x-2 text-lg font-semibold text-white duration-75 ease-in-out rounded-full group bg-brand-600 hover:bg-brand-700">
+          <span className="p-1 mr-4 bg-white rounded-full text-brand-600 group-hover:bg-gray-100 group-hover:text-brand-700">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
