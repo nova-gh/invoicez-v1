@@ -4,6 +4,22 @@
 
 @layer components{
   .page-wrapper{
-    @apply flex flex-col h-screen p-8
+    @apply flex flex-col  p-8  
+    /* rm h-screen ^ */
+  }
+  .form-fieldset{
+    @apply space-y-5 mt-8
+  }
+  .form-legend{
+    @apply text-brand-600 font-semibold
+  }
+  .form-label {
+    @apply text-gray-300 font-medium
+  }
+  .form-input-cont{
+    @apply flex flex-col space-y-2  
+  }
+  .form-input{
+    @apply p-3 bg-gray-600 font-medium rounded-md
   }
 }
