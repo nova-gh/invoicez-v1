@@ -52,7 +52,6 @@ model User {
   postalCode    String?
   country       String?
   accounts      Account[]
-  sessions      Session[]
   invoices      Invoice[]
 }
 model VerificationToken {

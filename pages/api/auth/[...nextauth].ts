@@ -22,17 +22,20 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     session: async ({ session, token }) => {
+      const fetcheUser = await prisma.user.findUnique({
+        where: { id: token.sub },
+      });
       if (session?.user) {
-        session.user.id = token.sub!;
+        session.user = { ...fetcheUser! };
       }
       return session;
     },
-    jwt: async ({ user, token }) => {
-      if (user) {
-        token.sub = user.id;
-      }
-      return token;
-    },
+    // jwt: async ({ user, token }) => {
+    //   if (user) {
+    //     token.sub = user.id;
+    //   }
+    //   return token;
+    // },
   },
 };
 
