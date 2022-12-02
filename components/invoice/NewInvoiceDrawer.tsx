@@ -1,8 +1,13 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useSession } from "next-auth/react";
+
+type Props = {
+  open: boolean;
+  setOpen: (x: boolean) => void;
+};
 import NewInvoiceForm from "./NewInvoiceForm";
-const NewInvoiceDrawer = ({ open, setOpen }) => {
+const NewInvoiceDrawer = ({ open, setOpen }: Props) => {
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog
@@ -44,7 +49,7 @@ const NewInvoiceDrawer = ({ open, setOpen }) => {
                         <div className="">
                           <h2 className="text-2xl font-medium ">New Invoice</h2>
                         </div>
-                        <NewInvoiceForm />
+                        <NewInvoiceForm model={open} handleModel={setOpen} />
                       </div>
                     </div>
                     {/* /End replace */}
@@ -58,6 +63,7 @@ const NewInvoiceDrawer = ({ open, setOpen }) => {
                       Cancel
                     </button>
                     <button
+                      form="new-invoice"
                       type="submit"
                       className="inline-flex justify-center px-4 py-2 ml-4 text-sm font-medium text-white border border-transparent rounded-md shadow-sm focus:brand-brand-500 bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2"
                     >

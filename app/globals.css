@@ -22,4 +22,11 @@
   .form-input{
     @apply p-3 bg-gray-600 font-medium rounded-md
   }
+ 
+}
+@layer utilities {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    @apply appearance-none;
+  }
 }
