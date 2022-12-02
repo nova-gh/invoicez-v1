@@ -1,12 +1,16 @@
 "use client";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 type Props = {
   model: boolean;
-  handleModel: (x: boolean) => void;
+  handleModel: () => void;
+  submitLoader: (loader: boolean) => void;
 };
-const NewInvoiceForm = ({ model, handleModel }: Props) => {
+const NewInvoiceForm = ({ model, handleModel, submitLoader }: Props) => {
+  const router = useRouter();
   const currentDate = new Date().toISOString().split("T")[0];
   const { data } = useSession();
   // Billing info
@@ -53,40 +57,49 @@ const NewInvoiceForm = ({ model, handleModel }: Props) => {
     }
   };
   const handleFormSubmission = async () => {
-    const res = await fetch(`/api/createInvoice`, {
-      body: JSON.stringify({
-        creatorId: "637eb5f11f24685650bbbc78",
-        createdAt: "2022-11-22T01:29:05.319Z",
-        paymentDue: "1970-01-01T00:00:00.000Z",
-        description: "This is test",
-        clientName: "Submit name",
-        clientEmail: "test@gmail.com",
-        status: true,
-        total: 10.89,
-        paymentTerms: 10,
-        clientAddress: {
-          city: "London",
-          street: "19 Union terrace",
-          country: "United Kingdom",
-          postCode: "ED1 9PB",
+    try {
+      submitLoader(true);
+      const res = await fetch(`/api/createInvoice`, {
+        headers: {
+          "Content-Type": "application/json",
         },
-        senderAddress: {
-          city: "Bradford",
-          street: "84 Church Way",
-          country: "United Kingdom",
-          postCode: "BD1 9PB",
-        },
-        items: [
-          { name: "New Logo", price: 1532.33, total: 1532.33, quantity: 1 },
-        ],
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-    });
-    const data = await res.json();
-    console.log(data);
+        method: "POST",
+        body: JSON.stringify({
+          creatorId: "637eb5f11f24685650bbbc78",
+          paymentDue: "2023-01-01T00:00:00.000Z",
+          description: "Submiting testing 2",
+          clientName: "Nova Gh",
+          clientEmail: "test@gmail.com",
+          status: false,
+          total: 99.99,
+          paymentTerms: 10,
+          clientAddress: {
+            city: "London",
+            street: "19 Union terrace",
+            country: "United Kingdom",
+            postCode: "ED1 9PB",
+          },
+          senderAddress: {
+            city: "Bradford",
+            street: "84 Church Way",
+            country: "United Kingdom",
+            postCode: "BD1 9PB",
+          },
+          items: [
+            { name: "New Logo", price: 1532.33, total: 1532.33, quantity: 1 },
+          ],
+        }),
+      });
+      const { data, error } = await res.json();
+      if (error) throw error;
+      handleModel();
+      router.refresh();
+      toast.success(`Created Invoice #${data?.id}!`);
+    } catch (error) {
+      toast.error("Error Creating Invoice");
+    } finally {
+      submitLoader(false);
+    }
   };
   return (
     <form
@@ -278,10 +291,17 @@ const NewInvoiceForm = ({ model, handleModel }: Props) => {
           </label>
         </div>
         {itemInputs?.map((input) => (
-          <div key={input.id} className="grid grid-cols-6 gap-x-3">
+          <div
+            id="item-form"
+            key={input.id}
+            className="grid grid-cols-6 gap-x-3"
+          >
             <input
               type="text"
               name={input.name}
+              className="col-span-2 form-input"
+              value={input.name}
+              // required
               onChange={(e) => {
                 setItemInputs((current) =>
                   current.map((obj) => {
@@ -292,8 +312,6 @@ const NewInvoiceForm = ({ model, handleModel }: Props) => {
                   })
                 );
               }}
-              className="col-span-2 form-input"
-              value={input.name}
             />
             <input
               type="number"
@@ -302,6 +320,7 @@ const NewInvoiceForm = ({ model, handleModel }: Props) => {
               name={"quantity"}
               className=" form-input"
               value={input.quantity}
+              // required
               onChange={(e) => {
                 setItemInputs((current) =>
                   current.map((obj) => {
@@ -327,6 +346,7 @@ const NewInvoiceForm = ({ model, handleModel }: Props) => {
               max="9999"
               className="form-input "
               value={input.price}
+              // required
               onChange={(e) => {
                 setItemInputs((current) =>
                   current.map((obj) => {
@@ -350,9 +370,9 @@ const NewInvoiceForm = ({ model, handleModel }: Props) => {
             />
             <button
               id={String(input.id)}
-              type="button"
-              onClick={removeNewItemRow}
               className="flex items-center justify-center mx-2 duration-75 ease-in-out text-gray-white hover:text-red-500 sm:mx-5"
+              onClick={removeNewItemRow}
+              type="button"
             >
               <span className="sr-only">Delete</span>
               <svg
