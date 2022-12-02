@@ -11,12 +11,14 @@ const fetchInvoices = async (userId: User["id"]) => {
 export default async function Home() {
   const user = await getUser();
   const invoices = await fetchInvoices(user?.id!);
+  console.log(invoices.length);
+
   const totalInvoice = invoices.length;
 
   return (
     <main className="page-wrapper">
       <InvoiceHeader totalInvoice={totalInvoice} />
-      <div className="mt-4 space-y-4">
+      <div className="my-4 space-y-4 ">
         {invoices?.map((invoice) => (
           <InvoiceCard invoice={invoice} key={invoice.id} />
         ))}

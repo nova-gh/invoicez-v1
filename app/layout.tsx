@@ -17,11 +17,11 @@ export default async function RootLayout({
         head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
       */}
       <head />
-      <body className=" mx-auto flex h-screen max-w-[1440px] flex-col bg-gray-800 lg:flex-row">
+      <body className="mx-auto flex max-w-[1440px] flex-col bg-gray-800 lg:flex-row">
         <Providers session={session}>
           <DesktopNav session={session} />
           <MobileNav session={session} />
-          <div className="flex-1 bg-gray-900">{children}</div>
+          <div className="flex-1 min-h-screen bg-gray-900 ">{children}</div>
         </Providers>
       </body>
     </html>
