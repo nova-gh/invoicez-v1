@@ -1,6 +1,6 @@
 "use client";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
@@ -12,9 +12,50 @@ type Props = {
 const NewInvoiceForm = ({ model, handleModel, submitLoader }: Props) => {
   const router = useRouter();
   const currentDate = new Date().toISOString().split("T")[0];
-  const { data } = useSession();
+  const { data: session } = useSession();
+  // Billing creator addresss
+  const [creator, setCreator] = useState({
+    creatorId: session?.user.id,
+    street: session?.user.streetAddress,
+    city: session?.user.city,
+    postCode: session?.user.postalCode,
+    country: session?.user.country,
+  });
   // Billing info
-  const [bill, setBill] = useState({});
+  const [bill, setBill] = useState({
+    clientName: "",
+    clientEmail: "",
+    paymentTerms: "",
+    paymentDue: "",
+    description: "",
+  });
+  const [clientAddress, setClientAddress] = useState({
+    street: "",
+    city: "",
+    postCode: "",
+    country: "",
+  });
+  const handleCreatorInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCreator({ ...creator, [e.target.name]: e.target.value });
+  };
+  const handleBillInputs = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    if (e.target.name == "paymentDue") {
+      setBill({
+        ...bill,
+        [e.target.name]: new Date(e.target.value).toISOString(),
+      });
+    } else {
+      setBill({ ...bill, [e.target.name]: e.target.value });
+    }
+  };
+
+  const handleStreetInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setClientAddress({ ...clientAddress, [e.target.name]: e.target.value });
+  };
   // Item list rows
   const [itemInputs, setItemInputs] = useState([
     { id: Date.now(), name: "", quantity: "", price: "", total: "" },
@@ -56,6 +97,7 @@ const NewInvoiceForm = ({ model, handleModel, submitLoader }: Props) => {
       );
     }
   };
+
   const handleFormSubmission = async () => {
     try {
       submitLoader(true);
@@ -65,29 +107,12 @@ const NewInvoiceForm = ({ model, handleModel, submitLoader }: Props) => {
         },
         method: "POST",
         body: JSON.stringify({
-          creatorId: "637eb5f11f24685650bbbc78",
-          paymentDue: "2023-01-01T00:00:00.000Z",
-          description: "Submiting testing 2",
-          clientName: "Nova Gh",
-          clientEmail: "test@gmail.com",
-          status: false,
+          ...creator,
+          ...bill,
           total: 99.99,
-          paymentTerms: 10,
-          clientAddress: {
-            city: "London",
-            street: "19 Union terrace",
-            country: "United Kingdom",
-            postCode: "ED1 9PB",
-          },
-          senderAddress: {
-            city: "Bradford",
-            street: "84 Church Way",
-            country: "United Kingdom",
-            postCode: "BD1 9PB",
-          },
-          items: [
-            { name: "New Logo", price: 1532.33, total: 1532.33, quantity: 1 },
-          ],
+          clientAddress: clientAddress,
+          senderAddress: creator,
+          items: itemInputs,
         }),
       });
       const { data, error } = await res.json();
@@ -118,10 +143,12 @@ const NewInvoiceForm = ({ model, handleModel, submitLoader }: Props) => {
           </label>
           <input
             type="text"
-            name="senderStreet"
+            name="street"
             id="sender-street-add"
             className="form-input"
-            defaultValue={data?.user.streetAddress || ""}
+            value={creator.street}
+            onChange={handleCreatorInputs}
+            required
           />
         </div>
         <div className="grid grid-cols-2 gap-x-4 gap-y-5 md:grid-cols-3 md:gap-y-0 ">
@@ -131,10 +158,12 @@ const NewInvoiceForm = ({ model, handleModel, submitLoader }: Props) => {
             </label>
             <input
               type="text"
-              name="senderCity"
+              name="city"
               id="sender-city"
               className="form-input"
-              defaultValue={data?.user.city || ""}
+              value={creator.city}
+              onChange={handleCreatorInputs}
+              required
             />
           </div>
           <div className="form-input-cont">
@@ -143,10 +172,12 @@ const NewInvoiceForm = ({ model, handleModel, submitLoader }: Props) => {
             </label>
             <input
               type="text"
-              name="senderPostal"
+              name="postCode"
               id="sender-postal"
               className="form-input"
-              defaultValue={data?.user.postalCode}
+              value={creator.postCode?.toString()}
+              onChange={handleCreatorInputs}
+              required
             />
           </div>
           <div className="col-span-2 form-input-cont md:col-span-1">
@@ -155,10 +186,12 @@ const NewInvoiceForm = ({ model, handleModel, submitLoader }: Props) => {
             </label>
             <input
               type="text"
-              name="senderCountry"
+              name="country"
               id="sender-country"
               className="form-input"
-              defaultValue={data?.user.country || ""}
+              value={creator.country}
+              onChange={handleCreatorInputs}
+              required
             />
           </div>
         </div>
@@ -173,7 +206,12 @@ const NewInvoiceForm = ({ model, handleModel, submitLoader }: Props) => {
             type="text"
             name="clientName"
             id="client-name"
+            min={3}
+            max={20}
             className="form-input"
+            onChange={handleBillInputs}
+            value={bill.clientName}
+            required
           />
         </div>
         <div className="form-input-cont">
@@ -181,10 +219,13 @@ const NewInvoiceForm = ({ model, handleModel, submitLoader }: Props) => {
             Client&apos;s Email
           </label>
           <input
-            type="text"
+            type="email"
             name="clientEmail"
             id="client-email"
             className="form-input"
+            onChange={handleBillInputs}
+            value={bill.clientEmail}
+            required
           />
         </div>
         <div className="form-input-cont">
@@ -193,9 +234,14 @@ const NewInvoiceForm = ({ model, handleModel, submitLoader }: Props) => {
           </label>
           <input
             type="text"
-            name="clientStreet"
+            name="street"
             id="client-street-address"
+            min={10}
+            max={30}
             className="form-input"
+            onChange={handleStreetInputs}
+            value={clientAddress.street}
+            required
           />
         </div>
         <div className="grid grid-cols-2 gap-x-4 gap-y-5 md:grid-cols-3 md:gap-y-0">
@@ -205,9 +251,14 @@ const NewInvoiceForm = ({ model, handleModel, submitLoader }: Props) => {
             </label>
             <input
               type="text"
-              name="clientCity"
+              name="city"
               id="client-city"
+              min={3}
+              max={12}
               className="form-input"
+              onChange={handleStreetInputs}
+              value={clientAddress.city}
+              required
             />
           </div>
           <div className="form-input-cont">
@@ -216,9 +267,14 @@ const NewInvoiceForm = ({ model, handleModel, submitLoader }: Props) => {
             </label>
             <input
               type="text"
-              name="clientPostal"
+              name="postCode"
+              min={5}
+              max={6}
               id="client-postal"
               className="form-input"
+              onChange={handleStreetInputs}
+              value={clientAddress.postCode}
+              required
             />
           </div>
           <div className="col-span-2 form-input-cont md:col-span-1">
@@ -227,9 +283,14 @@ const NewInvoiceForm = ({ model, handleModel, submitLoader }: Props) => {
             </label>
             <input
               type="text"
-              name="clientCountry"
+              name="country"
+              min={2}
+              max={10}
               id="client-country"
               className="form-input"
+              onChange={handleStreetInputs}
+              value={clientAddress.country}
+              required
             />
           </div>
         </div>
@@ -255,12 +316,30 @@ const NewInvoiceForm = ({ model, handleModel, submitLoader }: Props) => {
               name="paymentTerms"
               id="payment-terms"
               className="form-input"
+              onChange={handleBillInputs}
+              required
             >
-              <option value="1">Net 30 Days</option>
-              <option value="2">Net 60 Days</option>
-              <option value="3">Net 90 Days</option>
+              <option value="30">Net 30 Days</option>
+              <option value="60">Net 60 Days</option>
+              <option value="90">Net 90 Days</option>
             </select>
           </div>
+        </div>
+        <div className="w-1/2 form-input-cont">
+          <label htmlFor="project-paymentDue" className="form-label">
+            Payment Due Date
+          </label>
+          <input
+            type="date"
+            min="2022-01-01"
+            max="2050-01-01"
+            name="paymentDue"
+            id="project-paymentDue"
+            className="form-input"
+            value={bill.paymentDue.split("T")[0]}
+            onChange={handleBillInputs}
+            required
+          />
         </div>
         <div className="form-input-cont">
           <label htmlFor="project-description" className="form-label">
@@ -271,6 +350,9 @@ const NewInvoiceForm = ({ model, handleModel, submitLoader }: Props) => {
             name="description"
             id="project-description"
             className="form-input"
+            value={bill.description}
+            onChange={handleBillInputs}
+            required
           />
         </div>
       </fieldset>

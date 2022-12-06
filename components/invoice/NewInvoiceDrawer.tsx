@@ -1,6 +1,5 @@
 import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { useSession } from "next-auth/react";
 
 type Props = {
   open: boolean;
