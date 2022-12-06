@@ -1,21 +1,25 @@
 "use client";
 
+import { Invoice } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import EditInvoiceDrawer from "./EditInvoiceDrawer";
 
 type Props = {
   status: boolean;
   id: string;
   creatorId: string;
+  invoice: Invoice;
 };
-const InvoiceDetailsHeader = ({ status, id, creatorId }: Props) => {
+const InvoiceDetailsHeader = ({ status, id, creatorId, invoice }: Props) => {
   const router = useRouter();
   const [delLoader, setDelLoader] = useState(false);
   const [statusLoader, setStatusLoader] = useState(false);
   const [editLoader, setEditLoader] = useState(false);
-  const handleEdit = async () => {
-    console.log("handle edit");
+  const [open, setOpen] = useState(false);
+  const handleEditButton = () => {
+    setOpen(true);
   };
   const handleDelete = async (id: string) => {
     try {
@@ -82,12 +86,15 @@ const InvoiceDetailsHeader = ({ status, id, creatorId }: Props) => {
         </button>
       </div>
       <div className="hidden space-x-4 font-semibold text-white md:inline-flex">
-        <button
-          onClick={handleEdit}
-          className="px-5 py-3 duration-75 ease-in-out bg-gray-500 rounded-full hover:bg-gray-600"
-        >
-          Eidt
-        </button>
+        <>
+          <button
+            onClick={handleEditButton}
+            className="px-5 py-3 duration-75 ease-in-out bg-gray-500 rounded-full hover:bg-gray-600"
+          >
+            Eidt
+          </button>
+          <EditInvoiceDrawer open={open} setOpen={setOpen} invoice={invoice} />
+        </>
         <button
           disabled={delLoader}
           onClick={() => handleDelete(id)}

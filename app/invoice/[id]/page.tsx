@@ -32,6 +32,7 @@ const SingleInvoicePage = async ({ params }: Props) => {
       <div className={`my-5 flex flex-col space-y-10 `}>
         <InvoiceDetailsBackButton />
         <InvoiceDetailsHeader
+          invoice={invoice!}
           status={invoice?.status!}
           id={invoice.id}
           creatorId={user?.id!}
