@@ -5,7 +5,7 @@ import SignOut from "../../components/auth/SignOut";
 const SettingPage = async () => {
   const user = await getUser();
   return (
-    <main className="text-white page-wrapper lg:h-screen">
+    <main className="text-white page-wrapper lg:min-h-screen">
       <h1 className="page-heading">Settings</h1>
       <div className="my-4 space-y-8 ">
         <h2 className="text-xl font-medium">User Details</h2>

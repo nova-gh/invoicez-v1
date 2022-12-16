@@ -15,7 +15,7 @@ export default async function Home() {
   const totalInvoice = invoices.length;
 
   return (
-    <main className="page-wrapper lg:h-screen">
+    <main className="page-wrapper">
       <InvoiceHeader totalInvoice={totalInvoice} />
       <div className="my-4 space-y-4 ">
         {invoices?.map((invoice) => (

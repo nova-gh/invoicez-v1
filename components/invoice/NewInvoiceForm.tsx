@@ -15,7 +15,6 @@ const NewInvoiceForm = ({ model, handleModel, submitLoader }: Props) => {
   const { data: session } = useSession();
   // Billing creator addresss
   const [creator, setCreator] = useState({
-    creatorId: session?.user.id,
     street: session?.user.streetAddress,
     city: session?.user.city,
     postCode: session?.user.postalCode,
@@ -97,7 +96,6 @@ const NewInvoiceForm = ({ model, handleModel, submitLoader }: Props) => {
       );
     }
   };
-
   const handleFormSubmission = async () => {
     try {
       submitLoader(true);
@@ -107,9 +105,16 @@ const NewInvoiceForm = ({ model, handleModel, submitLoader }: Props) => {
         },
         method: "POST",
         body: JSON.stringify({
-          ...creator,
-          ...bill,
-          total: 99.99,
+          creatorId: session?.user.id,
+          paymentDue: bill.paymentDue,
+          description: bill.description,
+          clientName: bill.clientName,
+          clientEmail: bill.clientEmail,
+          total: itemInputs.reduce(
+            (pv, cv) => Number(pv) + Number(cv.total),
+            0
+          ),
+          paymentTerms: Number(bill.paymentTerms),
           clientAddress: clientAddress,
           senderAddress: creator,
           items: itemInputs,
@@ -126,6 +131,8 @@ const NewInvoiceForm = ({ model, handleModel, submitLoader }: Props) => {
       submitLoader(false);
     }
   };
+  let total = itemInputs.reduce((pv, cv) => Number(pv) + Number(cv.total), 0);
+  console.log(typeof total);
   return (
     <form
       id="new-invoice"
@@ -383,7 +390,7 @@ const NewInvoiceForm = ({ model, handleModel, submitLoader }: Props) => {
               name={input.name}
               className="col-span-2 form-input"
               value={input.name}
-              // required
+              required
               onChange={(e) => {
                 setItemInputs((current) =>
                   current.map((obj) => {
@@ -402,7 +409,7 @@ const NewInvoiceForm = ({ model, handleModel, submitLoader }: Props) => {
               name={"quantity"}
               className=" form-input"
               value={input.quantity}
-              // required
+              required
               onChange={(e) => {
                 setItemInputs((current) =>
                   current.map((obj) => {
@@ -422,13 +429,13 @@ const NewInvoiceForm = ({ model, handleModel, submitLoader }: Props) => {
               }}
             />
             <input
-              type="text"
+              type="number"
               name={"price"}
               min="1"
               max="9999"
               className="form-input "
               value={input.price}
-              // required
+              required
               onChange={(e) => {
                 setItemInputs((current) =>
                   current.map((obj) => {
@@ -447,6 +454,7 @@ const NewInvoiceForm = ({ model, handleModel, submitLoader }: Props) => {
               type="text"
               name={"total"}
               readOnly
+              tabIndex={-1}
               value={input.total}
               className="bg-transparent form-input"
             />
