@@ -11,7 +11,6 @@ const fetchInvoices = async (userId: User["id"]) => {
 export default async function Home() {
   const user = await getUser();
   const invoices = await fetchInvoices(user?.id!);
-  console.log(invoices.length);
 
   const totalInvoice = invoices.length;
 

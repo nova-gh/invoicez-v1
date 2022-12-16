@@ -19,7 +19,7 @@ const fetchInvoiceForUser = async (
       creatorId,
     },
   });
-  return res;
+  return JSON.parse(JSON.stringify(res));
 };
 const SingleInvoicePage = async ({ params }: Props) => {
   const user = await getUser();
@@ -29,7 +29,7 @@ const SingleInvoicePage = async ({ params }: Props) => {
   }
   return (
     <main className="page-wrapper">
-      <div className={`my-5 flex flex-col space-y-10 `}>
+      <div className={`flex flex-col space-y-10 `}>
         <InvoiceDetailsBackButton />
         <InvoiceDetailsHeader
           invoice={invoice!}

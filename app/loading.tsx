@@ -1,7 +1,7 @@
 export default function Loading() {
   // You can add any UI inside Loading, including a Skeleton.
   return (
-    <div className="page-wrapper">
+    <div className="page-wrapper h-[calc(100vh-96px)]">
       <div className="flex items-center justify-center h-full">
         <div role="status">
           <svg

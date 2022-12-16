@@ -21,7 +21,7 @@ const UserDetails = ({ user }: Props) => {
   const [country, setCountry] = useState(user.country ?? "");
   const [update, setUpdate] = useState(false);
   return (
-    <form className="p-4 mt-4 space-y-4 bg-gray-800 rounded-md">
+    <form className="p-10 mt-4 space-y-8 bg-gray-800 rounded-md ">
       <div className="gap-4 space-y-4 lg:grid lg:grid-cols-2 lg:space-y-0">
         <div className="form-input-cont">
           <label htmlFor="name" className="form-label">

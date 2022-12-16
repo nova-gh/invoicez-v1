@@ -7,7 +7,7 @@ const SettingPage = async () => {
   return (
     <main className="text-white page-wrapper lg:h-screen">
       <h1 className="page-heading">Settings</h1>
-      <div className="p-4 my-4 space-y-4 ">
+      <div className="my-4 space-y-8 ">
         <h2 className="text-xl font-medium">User Details</h2>
         <div className="">
           <Image
