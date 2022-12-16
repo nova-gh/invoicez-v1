@@ -4,15 +4,16 @@ type Props = {
   invoice: Invoice;
 };
 const InvoiceDetails = ({ invoice }: Props) => {
-  const createdDate = new Date(invoice.createdAt).toLocaleDateString("en-US");
-  const paymentDate = new Date(invoice.paymentDue).toLocaleDateString("en-US");
+  const createdDate = new Date(invoice.createdAt).toLocaleDateString("en-US", {
+    timeZone: "UTC",
+  });
+  const paymentDate = new Date(invoice.paymentDue).toLocaleDateString("en-US", {
+    timeZone: "UTC",
+  });
   const currencyFormatter = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
   });
-  const amountDue = invoice.items
-    .map((items) => items.total)
-    .reduce((pv, cv) => pv + cv, 0);
 
   return (
     <div className="flex flex-col w-full p-8 space-y-10 font-medium bg-gray-800 rounded-lg">
@@ -76,7 +77,7 @@ const InvoiceDetails = ({ invoice }: Props) => {
         <div className="flex items-center justify-between h-20 p-8 py-12 bg-black">
           <p className="text-xl text-gray-300">Amount Due</p>
           <p className="text-3xl text-white">
-            {currencyFormatter.format(amountDue)}
+            {currencyFormatter.format(invoice.total)}
           </p>
         </div>
       </div>

@@ -56,7 +56,6 @@ const EditInvoiceForm = ({
   const handleStreetInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
     setClientAddress({ ...clientAddress, [e.target.name]: e.target.value });
   };
-  console.log(bill.paymentDue);
   // Item list rows
   const [itemInputs, setItemInputs] = useState(invoice.items);
   const addNewItemRow = () => {

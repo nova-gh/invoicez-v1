@@ -8,7 +8,9 @@ const InvoiceCard = ({ invoice }: Props) => {
     style: "currency",
     currency: "USD",
   });
-  const createdDate = new Date(invoice.paymentDue).toLocaleDateString("en-US");
+  const createdDate = new Date(invoice.paymentDue).toLocaleDateString("en-US", {
+    timeZone: "UTC",
+  });
   return (
     <div>
       <div
