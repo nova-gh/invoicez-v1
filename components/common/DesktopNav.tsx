@@ -1,7 +1,8 @@
 import Link from "next/link";
+import { Session } from "typing";
 import Avatar from "./Avatar";
 
-const DesktopNav = ({ session }) => {
+const DesktopNav = ({ session }: Session) => {
   return (
     <header className="relative hidden w-[10%] overflow-hidden border-l border-gray-700 bg-gray-800 text-white lg:flex lg:flex-col ">
       <div className="sticky top-0 p-2 ease-linear bg-indigo-600 rounded-b-2xl hover:bg-indigo-700 ">

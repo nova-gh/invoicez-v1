@@ -4,8 +4,8 @@ import Avatar from "./Avatar";
 
 const MobileNav = ({ session }: Session) => {
   return (
-    <header className="flex h-24 justify-between bg-gray-800 lg:hidden">
-      <div className="bg-brand/75 hover:bg-brand flex rounded-r-2xl bg-indigo-600 ease-linear hover:bg-indigo-700">
+    <header className="sticky top-0 flex justify-between h-24 bg-gray-800 lg:hidden">
+      <div className="flex ease-linear bg-indigo-600 bg-brand/75 hover:bg-brand rounded-r-2xl hover:bg-indigo-700">
         <Link href="/" className="flex flex-col py-4">
           <svg
             width="120"
@@ -90,7 +90,7 @@ const MobileNav = ({ session }: Session) => {
         </Link>
       </div>
       {session?.user && (
-        <div className="flex items-center border-l border-gray-600 px-4">
+        <div className="flex items-center px-4 border-l border-gray-600">
           <Link href="/setting">
             <Avatar session={session} />
           </Link>
