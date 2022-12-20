@@ -1,11 +1,13 @@
-import { Invoice } from "@prisma/client";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "react-hot-toast";
+import { InvoicePlus } from "types/typing";
 
 type Props = {
   model: boolean;
   handleModel: () => void;
   submitLoader: (loader: boolean) => void;
-  invoice: Invoice;
+  invoice: InvoicePlus;
 };
 const EditInvoiceForm = ({
   model,
@@ -13,11 +15,11 @@ const EditInvoiceForm = ({
   submitLoader,
   invoice,
 }: Props) => {
+  const router = useRouter();
   const currentDate = new Date(invoice.createdAt).toISOString().split("T")[0];
   // Billing creator addresss
   const [creator, setCreator] = useState({
-    creatorId: invoice.creatorId,
-    street: invoice.senderAddress.street,
+    street: invoice?.senderAddress?.street,
     city: invoice.senderAddress.city,
     postCode: invoice.senderAddress.postCode,
     country: invoice.senderAddress.country,
@@ -27,7 +29,7 @@ const EditInvoiceForm = ({
     clientName: invoice.clientName,
     clientEmail: invoice.clientEmail,
     paymentTerms: invoice.paymentTerms,
-    paymentDue: invoice.paymentDue,
+    paymentDue: invoice.paymentDue.toString(),
     description: invoice.description,
   });
   const [clientAddress, setClientAddress] = useState({
@@ -95,12 +97,50 @@ const EditInvoiceForm = ({
       );
     }
   };
+  const handleUpdate = async () => {
+    try {
+      submitLoader(true);
+      const res = await fetch("/api/updateInvoice", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "PUT",
+        body: JSON.stringify({
+          id: invoice.id,
+          data: {
+            paymentDue: bill.paymentDue,
+            description: bill.description,
+            clientName: bill.clientName,
+            clientEmail: bill.clientEmail,
+            total: itemInputs.reduce(
+              (pv, cv) => Number(pv) + Number(cv.total),
+              0
+            ),
+            paymentTerms: Number(bill.paymentTerms),
+            clientAddress: clientAddress,
+            senderAddress: creator,
+            items: itemInputs,
+          },
+        }),
+      });
+      const { data, error } = await res.json();
+      if (error) throw error;
+      handleModel();
+      router.refresh();
+      toast.success(`Updated Invoice #${data?.id}!`);
+    } catch (error) {
+      toast.error("Error Updating Invoice");
+    } finally {
+      submitLoader(false);
+    }
+  };
   return (
     <form
       id="new-invoice"
       className=""
       onSubmit={(e) => {
         e.preventDefault();
+        handleUpdate();
       }}
     >
       <fieldset className="form-fieldset">
