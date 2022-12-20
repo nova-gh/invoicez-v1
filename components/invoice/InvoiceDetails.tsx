@@ -1,7 +1,7 @@
-import { Invoice } from "@prisma/client";
+import { InvoicePlus } from "types/typing";
 
 type Props = {
-  invoice: Invoice;
+  invoice: InvoicePlus;
 };
 const InvoiceDetails = ({ invoice }: Props) => {
   const createdDate = new Date(invoice.createdAt).toLocaleDateString("en-US", {

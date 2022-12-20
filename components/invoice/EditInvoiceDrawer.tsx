@@ -1,12 +1,12 @@
 import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import EditInvoiceForm from "./EditInvoiceForm";
-import { Invoice } from "@prisma/client";
+import { InvoicePlus } from "types/typing";
 
 type Props = {
   open: boolean;
   setOpen: (x: boolean) => void;
-  invoice: Invoice;
+  invoice: InvoicePlus;
 };
 const EditInvoiceDrawer = ({ open, setOpen, invoice }: Props) => {
   const [submitLoading, setsubmitLoading] = useState(false);
@@ -95,7 +95,7 @@ const EditInvoiceDrawer = ({ open, setOpen, invoice }: Props) => {
                           />
                         </svg>
                       </div>
-                      <span>{submitLoading ? "Saving" : "Save"}</span>
+                      <span>{submitLoading ? "Updating" : "Update"}</span>
                     </button>
                   </div>
                 </div>
