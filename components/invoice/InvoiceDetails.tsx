@@ -63,20 +63,48 @@ const InvoiceDetails = ({ invoice }: Props) => {
             {invoice?.clientAddress?.country}
           </address>
         </div>
-        <div className="col-span-2 mx-auto ">
+        <div className="col-span-2 pt-10 lg:mx-auto lg:pt-0 ">
           <p className="text-gray-300 ">Sent to</p>
           <p className="text-lg text-white">{invoice.clientEmail}</p>
         </div>
       </div>
       {/* items tabel */}
       <div className="overflow-hidden bg-gray-700 rounded-lg ">
-        <div className="w-full p-8 font-bold text-white table-fixed ">
-          {/* {invoice?.items.map((item, i) => (
-            ))} */}
+        <div className="w-full p-8 space-y-4 text-white">
+          <div className="hidden mb-4 text-lg text-gray-300 capitalize md:grid md:grid-cols-4 lg:text-xl">
+            <p className="">{"name"}</p>
+            <p className="place-self-center">{"qty."}</p>
+            <p className="place-self-end">{"price"}</p>
+            <p className="place-self-end">{"total"}</p>
+          </div>
+          {invoice?.items.map((item, i) => (
+            <div
+              key={item.id}
+              className="flex items-center justify-between text-white md:grid md:grid-cols-4 lg:text-lg "
+            >
+              <div className="text-base md:hidden">
+                <p className="text-lg font-bold text-gray-300">{item.name}</p>
+                <p className="">
+                  {item.quantity} x{" "}
+                  {currencyFormatter.format(Number(item.price))}
+                </p>
+              </div>
+              <p className="hidden md:inline">{item.name}</p>
+              <p className="hidden place-self-center md:inline">
+                {item.quantity}
+              </p>
+              <p className="hidden place-self-end md:inline">
+                {currencyFormatter.format(Number(item.price))}
+              </p>
+              <p className="text-lg font-bold md:inline md:place-self-end md:text-base lg:text-lg">
+                {currencyFormatter.format(Number(item.total))}
+              </p>
+            </div>
+          ))}
         </div>
-        <div className="flex items-center justify-between h-20 p-8 py-12 bg-black">
-          <p className="text-xl text-gray-300">Amount Due</p>
-          <p className="text-3xl text-white">
+        <div className="flex items-center justify-between h-20 p-8 py-12 space-x-3 bg-black sm:space-x-0">
+          <p className="text-lg text-gray-300 sm:text-xl">Amount Due</p>
+          <p className="text-xl text-white sm:text-3xl">
             {currencyFormatter.format(invoice.total)}
           </p>
         </div>
