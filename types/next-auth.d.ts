@@ -7,10 +7,10 @@ declare module "next-auth" {
   interface Session {
     user: {
       id: string;
-      country: string;
-      city: string;
-      postalCode: string;
-      streetAddress: string;
+      country: string | null;
+      city: string | null;
+      postalCode: string | null;
+      streetAddress: string | null;
     } & DefaultSession["user"];
   }
 }

@@ -151,7 +151,7 @@ const NewInvoiceForm = ({ model, handleModel, submitLoader }: Props) => {
             name="street"
             id="sender-street-add"
             className="form-input"
-            value={creator.street}
+            value={creator.street!}
             onChange={handleCreatorInputs}
             required
           />
@@ -166,7 +166,7 @@ const NewInvoiceForm = ({ model, handleModel, submitLoader }: Props) => {
               name="city"
               id="sender-city"
               className="form-input"
-              value={creator.city}
+              value={creator.city!}
               onChange={handleCreatorInputs}
               required
             />
@@ -194,7 +194,7 @@ const NewInvoiceForm = ({ model, handleModel, submitLoader }: Props) => {
               name="country"
               id="sender-country"
               className="form-input"
-              value={creator.country}
+              value={creator.country!}
               onChange={handleCreatorInputs}
               required
             />

@@ -4,10 +4,10 @@ import { useState } from "react";
 type Props = {
   user: {
     id: string;
-    country: string;
-    city: string;
-    postalCode: string;
-    streetAddress: string;
+    country: string | null;
+    city: string | null;
+    postalCode: string | null;
+    streetAddress: string | null;
     name?: string | null | undefined;
     email?: string | null | undefined;
     image?: string | null | undefined;

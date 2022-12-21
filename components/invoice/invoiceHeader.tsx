@@ -10,7 +10,7 @@ const InvoiceHeader = ({ totalInvoice }: Props) => {
         <h1 className="page-heading">Invoices</h1>
         <p className="flex text-gray-300">
           <span className="hidden mr-1 lg:block">There are </span>
-          {totalInvoice} total {totalInvoice > 1 ? "invocies" : "invocie"}.
+          {totalInvoice} total {totalInvoice > 1 ? "invocies" : "invoice"}.
         </p>
       </div>
       <div className="flex items-center ml-auto space-x-10">
