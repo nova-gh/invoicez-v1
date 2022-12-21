@@ -1,16 +1,16 @@
 "use client";
 
-import { Invoice } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { InvoicePlus } from "types/typing";
 import EditInvoiceDrawer from "./EditInvoiceDrawer";
 
 type Props = {
   status: boolean;
   id: string;
   creatorId: string;
-  invoice: Invoice;
+  invoice: InvoicePlus;
 };
 const InvoiceDetailsHeader = ({ status, id, creatorId, invoice }: Props) => {
   const router = useRouter();

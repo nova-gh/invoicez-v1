@@ -131,8 +131,6 @@ const NewInvoiceForm = ({ model, handleModel, submitLoader }: Props) => {
       submitLoader(false);
     }
   };
-  let total = itemInputs.reduce((pv, cv) => Number(pv) + Number(cv.total), 0);
-  console.log(typeof total);
   return (
     <form
       id="new-invoice"

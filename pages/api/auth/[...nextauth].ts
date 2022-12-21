@@ -30,12 +30,6 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     },
-    // jwt: async ({ user, token }) => {
-    //   if (user) {
-    //     token.sub = user.id;
-    //   }
-    //   return token;
-    // },
   },
 };
 
