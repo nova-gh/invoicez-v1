@@ -64,7 +64,7 @@ const InvoiceDetailsHeader = ({ status, id, creatorId, invoice }: Props) => {
   };
 
   return (
-    <div className="flex items-center justify-between p-6 space-x-4 bg-gray-800 rounded-lg ">
+    <div className="flex flex-col items-center justify-between p-6 space-y-6 bg-gray-800 rounded-lg sm:p-8 md:flex-row md:space-x-4 md:space-y-0 xl:px-12 ">
       <div className="flex items-center w-full font-semibold md:w-auto">
         <p className="text-white">Status</p>
         <button
@@ -85,27 +85,25 @@ const InvoiceDetailsHeader = ({ status, id, creatorId, invoice }: Props) => {
           {status ? "Paid" : "Pending"}
         </button>
       </div>
-      <div className="hidden space-x-4 font-semibold text-white md:inline-flex">
-        <>
-          <button
-            onClick={handleEditButton}
-            className="px-5 py-3 duration-75 ease-in-out bg-gray-500 rounded-full hover:bg-gray-600"
-          >
-            Eidt
-          </button>
-          <EditInvoiceDrawer open={open} setOpen={setOpen} invoice={invoice} />
-        </>
+      <div className="flex justify-between space-x-4 font-semibold text-white md:inline">
+        <button
+          onClick={handleEditButton}
+          className="px-4 py-2 duration-75 ease-in-out bg-gray-500 rounded-full hover:bg-gray-600 md:px-5 md:py-3"
+        >
+          Edit
+        </button>
+        <EditInvoiceDrawer open={open} setOpen={setOpen} invoice={invoice} />
         <button
           disabled={delLoader}
           onClick={() => handleDelete(id)}
-          className="px-5 py-3 duration-75 ease-in-out bg-red-500 rounded-full hover:bg-red-600 disabled:cursor-not-allowed disabled:bg-gray-700"
+          className="px-4 py-2 duration-75 ease-in-out bg-red-500 rounded-full hover:bg-red-600 disabled:cursor-not-allowed disabled:bg-gray-700 md:px-5 md:py-3"
         >
           Delete
         </button>
         <button
           disabled={status || statusLoader}
           onClick={handleStatusUpdate}
-          className="px-5 py-3 rounded-full bg-brand-500 disabled:cursor-not-allowed disabled:bg-gray-700"
+          className="px-4 py-2 rounded-full bg-brand-500 disabled:cursor-not-allowed disabled:bg-gray-700 md:px-5 md:py-3"
         >
           Mark as Paid
         </button>

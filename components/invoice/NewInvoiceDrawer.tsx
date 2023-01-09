@@ -38,7 +38,7 @@ const NewInvoiceDrawer = ({ open, setOpen }: Props) => {
               leaveFrom="translate-x-0"
               leaveTo="translate-x-full"
             >
-              <div className="w-screen max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl">
+              <div className="w-[calc(100vw-45px)] max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl">
                 <div className="flex flex-col h-full overflow-hidden text-white bg-gray-900 shadow-2xl rounded-l-2xl">
                   <div className="relative flex-1 px-4 mt-1 sm:px-6">
                     <div className="absolute inset-0 ">

@@ -30,7 +30,7 @@ const EditInvoiceDrawer = ({ open, setOpen, invoice }: Props) => {
             <Dialog.Overlay className="absolute inset-0 transition-opacity bg-gray-800 bg-opacity-75" />
           </Transition.Child>
 
-          <div className="fixed inset-y-0 right-0 flex pl-5 mt-24 md:pl-10 lg:mt-0 ">
+          <div className="fixed inset-y-0 right-0 flex pl-2 mt-24 sm:pl-5 md:pl-10 lg:mt-0">
             <Transition.Child
               as={Fragment}
               enter="transform transition ease-in-out duration-500 sm:duration-700"
@@ -40,7 +40,7 @@ const EditInvoiceDrawer = ({ open, setOpen, invoice }: Props) => {
               leaveFrom="translate-x-0"
               leaveTo="translate-x-full"
             >
-              <div className="w-screen max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl">
+              <div className="w-[calc(100vw-45px)] sm:max-w-lg md:max-w-xl lg:max-w-2xl">
                 <div className="flex flex-col h-full overflow-hidden text-white bg-gray-900 shadow-2xl rounded-l-2xl">
                   <div className="relative flex-1 px-4 mt-1 sm:px-6">
                     <div className="absolute inset-0 ">
@@ -49,7 +49,9 @@ const EditInvoiceDrawer = ({ open, setOpen, invoice }: Props) => {
                         aria-hidden="true"
                       >
                         <div className="">
-                          <h2 className="text-2xl font-medium ">New Invoice</h2>
+                          <h2 className="text-2xl font-medium ">
+                            Edit Invoice
+                          </h2>
                         </div>
                         <EditInvoiceForm
                           model={open}
@@ -59,7 +61,6 @@ const EditInvoiceDrawer = ({ open, setOpen, invoice }: Props) => {
                         />
                       </div>
                     </div>
-                    {/* /End replace */}
                   </div>
                   <div className="flex justify-between flex-shrink-0 p-6 bg-gray-600">
                     <button

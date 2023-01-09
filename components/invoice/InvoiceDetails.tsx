@@ -16,7 +16,7 @@ const InvoiceDetails = ({ invoice }: Props) => {
   });
 
   return (
-    <div className="flex flex-col w-full p-8 space-y-10 font-medium bg-gray-800 rounded-lg">
+    <div className="flex flex-col w-full p-6 space-y-10 font-medium bg-gray-800 rounded-lg sm:p-8 xl:px-12 ">
       <div className="flex flex-col w-full space-y-10 md:flex-row md:justify-between md:space-y-0">
         <div className="">
           <strong className="text-white">
@@ -48,7 +48,7 @@ const InvoiceDetails = ({ invoice }: Props) => {
             <p className="text-lg text-white">{paymentDate}</p>
           </div>
         </div>
-        <div className="col-span-1 mx-auto space-y-5">
+        <div className="col-span-1 mx-auto space-y-5 lg:mx-0 lg:ml-auto">
           <div>
             <p className="text-gray-300">Bill To</p>
             <p className="text-lg text-white">{invoice.clientName}</p>
@@ -63,7 +63,7 @@ const InvoiceDetails = ({ invoice }: Props) => {
             {invoice?.clientAddress?.country}
           </address>
         </div>
-        <div className="col-span-2 pt-10 lg:mx-auto lg:pt-0 ">
+        <div className="col-span-2 pt-10 lg:ml-auto lg:pt-0 ">
           <p className="text-gray-300 ">Sent to</p>
           <p className="text-lg text-white">{invoice.clientEmail}</p>
         </div>
