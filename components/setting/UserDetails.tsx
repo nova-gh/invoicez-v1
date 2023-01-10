@@ -1,6 +1,8 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 type Props = {
   user: {
     id: string;
@@ -14,14 +16,50 @@ type Props = {
   };
 };
 const UserDetails = ({ user }: Props) => {
-  const [fullName, setFullName] = useState(user.name ?? "");
-  const [streetAddress, setStreetAddress] = useState(user.streetAddress ?? "");
-  const [city, setCity] = useState(user.city ?? "");
-  const [postal, setPostal] = useState(user.postalCode ?? "");
-  const [country, setCountry] = useState(user.country ?? "");
+  const [name, setName] = useState(user.name);
+  const [streetAddress, setStreetAddress] = useState(user.streetAddress);
+  const [city, setCity] = useState(user.city);
+  const [postalCode, setPostalCode] = useState(user.postalCode);
+  const [country, setCountry] = useState(user.country);
   const [update, setUpdate] = useState(false);
+  const router = useRouter();
+  const handleUpdateUserInfo = async () => {
+    try {
+      setUpdate(true);
+      const res = await fetch("/api/updateUserInfo", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "PUT",
+        body: JSON.stringify({
+          id: user.id,
+          data: {
+            name,
+            streetAddress,
+            city,
+            postalCode,
+            country,
+          },
+        }),
+      });
+      const { data, error } = await res.json();
+      if (error) throw error;
+      router.refresh();
+      toast.success(`Updated user #${data?.id} info!`);
+    } catch (error) {
+      toast.error("Error Updating User Info");
+    } finally {
+      setUpdate(false);
+    }
+  };
   return (
-    <form className="p-10 mt-4 space-y-8 bg-gray-800 rounded-md ">
+    <form
+      className="p-10 mt-4 space-y-8 bg-gray-800 rounded-md "
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleUpdateUserInfo();
+      }}
+    >
       <div className="gap-4 space-y-4 lg:grid lg:grid-cols-2 lg:space-y-0">
         <div className="form-input-cont">
           <label htmlFor="name" className="form-label">
@@ -34,8 +72,8 @@ const UserDetails = ({ user }: Props) => {
             min={3}
             max={20}
             className="form-input"
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
+            value={name ?? ""}
+            onChange={(e) => setName(e.target.value)}
             required
           />
         </div>
@@ -63,7 +101,7 @@ const UserDetails = ({ user }: Props) => {
             min={3}
             max={20}
             className="form-input"
-            value={streetAddress}
+            value={streetAddress ?? ""}
             onChange={(e) => setStreetAddress(e.target.value)}
             required
           />
@@ -79,7 +117,7 @@ const UserDetails = ({ user }: Props) => {
             name="city"
             id="sender-city"
             className="form-input"
-            value={city}
+            value={city ?? ""}
             onChange={(e) => setCity(e.target.value)}
             required
           />
@@ -93,8 +131,8 @@ const UserDetails = ({ user }: Props) => {
             name="postCode"
             id="sender-postal"
             className="form-input"
-            value={postal?.toString()}
-            onChange={(e) => setPostal(e.target.value)}
+            value={postalCode?.toString() ?? ""}
+            onChange={(e) => setPostalCode(e.target.value)}
             required
           />
         </div>
@@ -107,22 +145,21 @@ const UserDetails = ({ user }: Props) => {
             name="country"
             id="sender-country"
             className="form-input"
-            value={country}
+            value={country ?? ""}
             onChange={(e) => setCountry(e.target.value)}
             required
           />
         </div>
       </div>
       <button
-        form="new-invoice"
         type="submit"
         className="flex justify-center px-4 py-2 ml-auto font-medium text-white border border-transparent rounded-md shadow-sm focus:brand-brand-500 bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:bg-gray-700"
         disabled={
           update ||
-          (fullName == user.name &&
+          (name == user.name &&
             streetAddress == user.streetAddress &&
             city == user.city &&
-            postal == user.postalCode &&
+            postalCode == user.postalCode &&
             country == user.country)
         }
       >

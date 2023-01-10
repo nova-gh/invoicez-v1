@@ -3,7 +3,7 @@ import { getProviders } from "next-auth/react";
 const SignInPage = async () => {
   const providers = await getProviders();
   return (
-    <main className="mx-auto flex min-h-[calc(100vh-97px)] flex-col items-center  justify-center space-y-8 bg-gray-900">
+    <main className="mx-auto flex min-h-[calc(100vh-97px)] flex-col items-center justify-center  space-y-8 bg-gray-900 lg:min-h-screen">
       <div className="flex flex-col items-center space-y-2">
         <svg
           width="60"

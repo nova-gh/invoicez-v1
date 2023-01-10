@@ -10,12 +10,6 @@ export type senderAddress = {
   postCode: string;
   country: string;
 };
-export type senderAddress = {
-  street: string;
-  city: string;
-  postCode: string;
-  country: string;
-};
 export type items = {
   id: number;
   name: string;
