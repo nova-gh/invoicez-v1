@@ -15,7 +15,7 @@ const InvoiceCard = ({ invoice }: Props) => {
     <div>
       <div
         key={invoice.id}
-        className="grid grid-cols-2 p-4 py-6 space-y-4 text-white bg-gray-800 rounded-lg place-items-center lg:grid-cols-7 lg:place-items-start lg:items-center lg:justify-items-center lg:space-y-0 lg:px-10"
+        className="grid grid-cols-2 p-4 py-6 space-y-4 text-white bg-gray-800 rounded-lg  place-items-center lg:grid-cols-7 lg:place-items-start lg:items-center lg:justify-items-center lg:space-y-0 lg:px-10"
       >
         <strong className="col-span-2">
           <span>#</span>
@@ -24,7 +24,9 @@ const InvoiceCard = ({ invoice }: Props) => {
         <p className="font-semibold text-gray-300 lg:px-4 xl:px-0">
           Due {createdDate}
         </p>
-        <p className="font-semibold text-gray-300 ">{invoice.clientName}</p>
+        <p className="font-semibold text-gray-300 capitalize">
+          {invoice.clientName}
+        </p>
         <strong className="">{currencyFormatter.format(invoice.total)}</strong>
         <div className="flex items-center justify-center w-full md:order-5 md:justify-evenly lg:col-span-2">
           <button
@@ -72,7 +74,7 @@ const InvoiceCard = ({ invoice }: Props) => {
           <Link
             href={`/invoice/${invoice.id}`}
             aria-label="Go to invoice details"
-            className="px-4 py-3 text-white duration-75 ease-in-out rounded-full bg-brand-600 hover:bg-brand-700"
+            className="px-4 py-3 font-medium text-white duration-75 ease-in-out rounded-full bg-brand-600 hover:bg-brand-700"
           >
             View Details
           </Link>

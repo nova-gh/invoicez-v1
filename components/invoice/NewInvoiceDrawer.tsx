@@ -7,7 +7,7 @@ type Props = {
 };
 import NewInvoiceForm from "./NewInvoiceForm";
 const NewInvoiceDrawer = ({ open, setOpen }: Props) => {
-  const [submitLoading, setsubmitLoading] = useState(false);
+  const [submitLoading, setSubmitLoading] = useState(false);
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog
@@ -52,7 +52,7 @@ const NewInvoiceDrawer = ({ open, setOpen }: Props) => {
                         <NewInvoiceForm
                           model={open}
                           handleModel={() => setOpen(false)}
-                          submitLoader={setsubmitLoading}
+                          submitLoader={setSubmitLoading}
                         />
                       </div>
                     </div>

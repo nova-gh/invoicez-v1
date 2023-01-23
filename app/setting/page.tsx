@@ -1,6 +1,7 @@
 import UserDetails from "@/components/setting/UserDetails";
 import { getUser } from "@/lib/session";
 import SignOut from "../../components/auth/SignOut";
+import Loading from "app/loading";
 const SettingPage = async () => {
   const user = await getUser();
   return (

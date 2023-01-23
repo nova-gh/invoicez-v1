@@ -15,7 +15,7 @@ const Avatar = ({ session }: Session) => {
         alt="Avatar Logo"
         height={42}
         width={42}
-        className="rounded-full "
+        className="rounded-full hover:border-2 hover:border-white"
       />
     </div>
   );

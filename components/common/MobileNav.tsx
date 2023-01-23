@@ -4,12 +4,12 @@ import Avatar from "./Avatar";
 
 const MobileNav = ({ session }: Session) => {
   return (
-    <header className="sticky top-0 flex justify-between h-24 bg-gray-800 lg:hidden">
+    <header className="sticky top-0 flex justify-between h-20 bg-gray-800 lg:hidden">
       <div className="flex ease-linear bg-indigo-600 bg-brand/75 hover:bg-brand rounded-r-2xl hover:bg-indigo-700">
         <Link href="/" className="flex flex-col py-4">
           <svg
-            width="120"
-            height="106"
+            width="80"
+            height="80"
             viewBox="0 0 120 106"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"

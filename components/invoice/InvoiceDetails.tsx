@@ -16,14 +16,16 @@ const InvoiceDetails = ({ invoice }: Props) => {
   });
 
   return (
-    <div className="flex flex-col w-full p-6 space-y-10 font-medium bg-gray-800 rounded-lg sm:p-8 xl:px-12 ">
+    <div className="flex flex-col w-full p-6 space-y-10 font-medium bg-gray-800 rounded-lg sm:p-8 lg:text-lg xl:px-12 ">
       <div className="flex flex-col w-full space-y-10 md:flex-row md:justify-between md:space-y-0">
         <div className="">
           <strong className="text-white">
             <span className="">#</span>
             {invoice?.id}
           </strong>
-          <p className="font-semibold text-gray-300">{invoice?.description}</p>
+          <p className="font-semibold text-gray-300 capitalize">
+            {invoice?.description}
+          </p>
         </div>
         {/* address */}
         <address className="not-italic font-medium text-white">
@@ -51,7 +53,9 @@ const InvoiceDetails = ({ invoice }: Props) => {
         <div className="col-span-1 mx-auto space-y-5 lg:mx-0 lg:ml-auto">
           <div>
             <p className="text-gray-300">Bill To</p>
-            <p className="text-lg text-white">{invoice.clientName}</p>
+            <p className="text-lg text-white capitalize">
+              {invoice.clientName}
+            </p>
           </div>
           <address className="not-italic font-medium text-white">
             {invoice?.clientAddress?.street}
@@ -83,13 +87,15 @@ const InvoiceDetails = ({ invoice }: Props) => {
               className="flex items-center justify-between text-white md:grid md:grid-cols-4 lg:text-lg "
             >
               <div className="text-base md:hidden">
-                <p className="text-lg font-bold text-gray-300">{item.name}</p>
+                <p className="text-lg font-bold text-gray-300 capitalize">
+                  {item.name}
+                </p>
                 <p className="">
                   {item.quantity} x{" "}
                   {currencyFormatter.format(Number(item.price))}
                 </p>
               </div>
-              <p className="hidden md:inline">{item.name}</p>
+              <p className="hidden capitalize md:inline">{item.name}</p>
               <p className="hidden place-self-center md:inline">
                 {item.quantity}
               </p>

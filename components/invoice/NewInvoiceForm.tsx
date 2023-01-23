@@ -330,7 +330,7 @@ const NewInvoiceForm = ({ model, handleModel, submitLoader }: Props) => {
             </select>
           </div>
         </div>
-        <div className="w-1/2 form-input-cont">
+        <div className="form-input-cont">
           <label htmlFor="project-paymentDue" className="form-label">
             Payment Due Date
           </label>

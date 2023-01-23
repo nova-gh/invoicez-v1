@@ -4,15 +4,16 @@ import Avatar from "./Avatar";
 
 const DesktopNav = ({ session }: Session) => {
   return (
-    <header className="relative hidden w-[10%] overflow-hidden border-l border-gray-700 bg-gray-800 text-white lg:flex lg:flex-col ">
+    <header className="relative hidden overflow-hidden text-white bg-gray-800 border-l border-gray-700 lg:flex lg:flex-col ">
       <div className="sticky top-0 p-2 ease-linear bg-indigo-600 rounded-b-2xl hover:bg-indigo-700 ">
         <Link passHref href={"/"} className="flex ">
           <svg
-            width="120"
-            height="106"
+            width="80"
+            height="80"
             viewBox="0 0 120 106"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
+            className="p-2"
           >
             <path
               d="M2.63125 105.532V85.9317H7.16725V105.532H2.63125Z"

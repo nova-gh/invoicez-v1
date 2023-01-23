@@ -9,7 +9,7 @@ type Props = {
   invoice: InvoicePlus;
 };
 const EditInvoiceDrawer = ({ open, setOpen, invoice }: Props) => {
-  const [submitLoading, setsubmitLoading] = useState(false);
+  const [submitLoading, setSubmitLoading] = useState(false);
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog
@@ -27,10 +27,10 @@ const EditInvoiceDrawer = ({ open, setOpen, invoice }: Props) => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Dialog.Overlay className="absolute inset-0 transition-opacity bg-gray-800 bg-opacity-75" />
+            <Dialog.Overlay className="absolute inset-0 bg-gray-800 bg-opacity-75 transition-opacity" />
           </Transition.Child>
 
-          <div className="fixed inset-y-0 right-0 flex pl-2 mt-24 sm:pl-5 md:pl-10 lg:mt-0">
+          <div className="fixed inset-y-0 right-0 mt-24 flex pl-2 sm:pl-5 md:pl-10 lg:mt-0">
             <Transition.Child
               as={Fragment}
               enter="transform transition ease-in-out duration-500 sm:duration-700"
@@ -41,11 +41,11 @@ const EditInvoiceDrawer = ({ open, setOpen, invoice }: Props) => {
               leaveTo="translate-x-full"
             >
               <div className="w-[calc(100vw-45px)] sm:max-w-lg md:max-w-xl lg:max-w-2xl">
-                <div className="flex flex-col h-full overflow-hidden text-white bg-gray-900 shadow-2xl rounded-l-2xl">
-                  <div className="relative flex-1 px-4 mt-1 sm:px-6">
+                <div className="flex h-full flex-col overflow-hidden rounded-l-2xl bg-gray-900 text-white shadow-2xl">
+                  <div className="relative mt-1 flex-1 px-4 sm:px-6">
                     <div className="absolute inset-0 ">
                       <div
-                        className="h-full px-6 py-6 mb-10 overflow-y-scroll"
+                        className="mb-10 h-full overflow-y-scroll px-6 py-6"
                         aria-hidden="true"
                       >
                         <div className="">
@@ -56,16 +56,16 @@ const EditInvoiceDrawer = ({ open, setOpen, invoice }: Props) => {
                         <EditInvoiceForm
                           model={open}
                           handleModel={() => setOpen(false)}
-                          submitLoader={setsubmitLoading}
+                          submitLoader={setSubmitLoading}
                           invoice={invoice}
                         />
                       </div>
                     </div>
                   </div>
-                  <div className="flex justify-between flex-shrink-0 p-6 bg-gray-600">
+                  <div className="flex flex-shrink-0 justify-between bg-gray-600 p-6">
                     <button
                       type="button"
-                      className="px-4 py-2 font-medium text-white bg-red-500 rounded-md shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
+                      className="rounded-md bg-red-500 px-4 py-2 font-medium text-white shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
                       onClick={() => setOpen(false)}
                     >
                       Cancel
@@ -73,7 +73,7 @@ const EditInvoiceDrawer = ({ open, setOpen, invoice }: Props) => {
                     <button
                       form="new-invoice"
                       type="submit"
-                      className="inline-flex justify-center px-4 py-2 ml-4 font-medium text-white border border-transparent rounded-md shadow-sm focus:brand-brand-500 bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:bg-gray-700"
+                      className="focus:brand-brand-500 ml-4 inline-flex justify-center rounded-md border border-transparent bg-brand-600 px-4 py-2 font-medium text-white shadow-sm hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:bg-gray-700"
                       disabled={submitLoading}
                     >
                       <div
@@ -81,7 +81,7 @@ const EditInvoiceDrawer = ({ open, setOpen, invoice }: Props) => {
                         className={`${submitLoading ? "inline" : "hidden"}`}
                       >
                         <svg
-                          className="inline w-6 h-6 mr-2 text-gray-300 animate-spin fill-indigo-600"
+                          className="mr-2 inline h-6 w-6 animate-spin fill-indigo-600 text-gray-300"
                           viewBox="0 0 100 101"
                           fill="none"
                           xmlns="http://www.w3.org/2000/svg"
