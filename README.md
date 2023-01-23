@@ -15,17 +15,18 @@ Insert gif or link to demo
 
 
 ## Screenshots
-Schema
-![Create Screenshot](public/readme/prisma-schema.PNG)
-CRUD
-![Create Screenshot](public/readme/create.PNG)
-![Create Screenshot](public/readme/dashboard.PNG)
-![Create Screenshot](public/readme/invoice-detials-route.PNG)
-![Create Screenshot](public/readme/update.PNG)
-![Create Screenshot](public/readme/delete.PNG)
+### Prisma Schema
+![prisma schema](public/readme/prisma-schema.PNG "prisma schema") 
 
-Login/Sign Up Via Google Provider 
-![Create Screenshot](public/readme/login.PNG)
+### CRUD Features
+![create invoice](public/readme/create.PNG "create invoice")
+![view invoices in dashboard](public/readme/dashboard.PNG "view invoices in dashboard")
+![dynamic invoice details page](public/readme/invoice-detials-route.PNG "dynamic invoice details page")
+![update invocie](public/readme/update.PNG "update invocie")
+![delete invocie](public/readme/delete.PNG "delete invocie")
+
+### Login/Sign Up Via Google Provider 
+![login page](public/readme/login.PNG "login page")
 
 ## Documentation
 
