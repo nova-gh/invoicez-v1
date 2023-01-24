@@ -11,7 +11,7 @@ Create invoices on the go and access them later to view, delete or update.
 
 ## Demo
 
-Insert gif or link to demo
+[Live](http://invoicez.vercel.app/)
 
 
 ## Screenshots
