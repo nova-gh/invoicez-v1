@@ -8,6 +8,9 @@
   scrollbar-width: thin;
   scrollbar-color: var(--scroll-bar) var(--scroll-background);
 }
+input[type=number] {
+  -moz-appearance: textfield;
+}
 
 /* Chrome, Edge, and Safari */
 *::-webkit-scrollbar {
@@ -23,6 +26,11 @@
   background-color: var(--scroll-bar);
   border-radius: 14px;
   border: 3px solid var(--scroll-background);
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 @tailwind components;
@@ -52,10 +60,4 @@
     @apply p-3 bg-gray-600 font-medium rounded-md
   }
  
-}
-@layer utilities {
-  input[type="number"]::-webkit-inner-spin-button,
-  input[type="number"]::-webkit-outer-spin-button {
-    @apply appearance-none;
-  }
 }
